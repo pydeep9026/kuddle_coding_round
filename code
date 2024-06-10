@@ -1,0 +1,53 @@
+
+#include <iostream>
+#include <vector>
+#include <queue>
+#include <unordered_map>
+#include <algorithm>
+
+
+
+using namespace std;
+
+int main(){
+    int T;
+    cin>>T;
+    while(T--){
+        int N,K;
+        vector<int> A(N);
+        vector<int> B(N);
+        for (int i=0;i<N;++i){
+            cin>>A[i];
+        }
+        for(int i=0;i<N;++i){
+            cin>>B[i];
+        }
+        
+        unordered_map<int,priority_queue<int,vector<int>,greater<int>>> category_map;
+        for(int i=0;i<N;++i){
+            category_map[A[i]].push(B[i]);
+            }
+            
+            if(category_map.size()<K){
+                cout<<-1<<endl;
+                continue;
+            }
+            
+            
+            vector<int> min_times;
+            for(auto &pair:category_map){
+                min_times.push_back(pair.second.top());
+            }
+            
+            sort(min_times.begin(),min_times.end());
+            int total_time=0;
+            for(int i=0;i<K;++i){
+                total_time+=min_times[i];
+            }
+            
+            
+            cout<<total_time<<endl;
+        }
+        
+    return 0;
+}
